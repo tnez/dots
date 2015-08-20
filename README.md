@@ -13,11 +13,13 @@ implemented for the browswer using ReactJS.
 ## Installation
 
 ```
-git clone repo-url
+git clone https://github.com/tnez/dots.git
+cd dots
+npm install
 ```
 
 ## Running
 
 ```
-gulp run
+gulp
 ```
