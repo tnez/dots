@@ -34,7 +34,12 @@ var Invaders = React.createClass({
       t0: t,
       t: t
     };
-    var newBubbles = this.state.bubbles;
+    // copy bubble array, getting rid of any that have fallen out of
+    // the screen to prevent this thing from slowing to a halt as we let
+    // it run
+    var newBubbles = _.filter(this.state.bubbles, function(bubbleData) {
+      return bubbleData.y <= 1000;
+    });
     newBubbles.push(bubbleData);
     this.setState({bubbles: newBubbles});
     console.log(this.state.bubbles);
