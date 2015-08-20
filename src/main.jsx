@@ -1,5 +1,6 @@
 $ = jQuery = require('jquery');
 
 var React = require('react');
+var Invaders = require('./components/invaders.jsx');
 
-React.render(<p>Hello World</p>, document.getElementById('app'));
+React.render(<Invaders />, document.getElementById('app'));
