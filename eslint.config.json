@@ -1,0 +1,25 @@
+{
+    "ecmaFeatures": {
+        "jsx": true
+    },
+    "env": {
+        "browser": true,
+        "node": true,
+        "jquery": true
+    },
+    "rules": {
+        "quotes": 0,
+        "no-trailing-spaces": 1,
+        "eol-last": 1,
+        "no-unused-vars": 0,
+        "no-underscore-dangle": 1,
+        "no-alert": 1,
+        "no-lone-blocks": 1,
+        "no-use-before-define": 0
+    },
+    "globals": {
+        jQuery: true,
+        $: true,
+        _: true
+    }
+}
