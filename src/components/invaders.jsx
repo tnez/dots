@@ -46,7 +46,6 @@ var Invaders = React.createClass({
       newBubbles.push(bubbleData);
     }
     this.setState({bubbles: newBubbles});
-    console.log(this.state.bubbles);
   },
 
   updateBubblePos: function(bubbleData, timeElapsed) {
@@ -119,7 +118,6 @@ var Invaders = React.createClass({
   },
 
   updateBoardDimensions: function(event) {
-    console.log("Window dims: " + $(window).width() + ", " + $(window).height());
     this.setState({
       boardHeight: $(window).height(),
       boardWidth: $(window).width()
@@ -161,7 +159,7 @@ var Invaders = React.createClass({
     let spacebarKeyCode = 32;
     let leftKeyCode = 37;
     let rightKeyCode = 39;
-    let upKeyCode = 38;        
+    let upKeyCode = 38;
     let downKeyCode = 40;
     if (event.keyCode === spacebarKeyCode) {
       this.fire();
@@ -179,7 +177,6 @@ var Invaders = React.createClass({
     }
     if (event.keyCode === upKeyCode) {
       let theta = this.state.spaceshipTheta / 180 * Math.PI;
-      console.log(theta);
       if (Math.sin(theta) > 0) {
         this.rotateLeft();
       } else {
@@ -214,7 +211,6 @@ var Invaders = React.createClass({
     let incrementFactor = 10;
     this.setState({spaceshipTheta: this.state.spaceshipTheta + 1 * incrementFactor});
   },
-  
 
   moveLeft: function() {
     let incrementFactor = 20;
@@ -235,7 +231,7 @@ var Invaders = React.createClass({
     let incrementFactor = 20;
     this.setState({spaceshipY: this.state.spaceshipY + 1 * incrementFactor});
   },
-  
+
   render: function() {
     return (
       <div>
