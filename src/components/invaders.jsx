@@ -5,6 +5,7 @@ var React = require('react');
 var StyleSheet = require('react-style');
 var Scoreboard = require('./scoreboard.jsx');
 var Bubble = require('./bubble.jsx');
+var Spaceship = require('./spaceship.jsx');
 
 var styles = StyleSheet.create({
   scoreboard: {
@@ -59,7 +60,6 @@ var Invaders = React.createClass({
     let interval = 5;
     setInterval(this.updateTimeElapsed, interval);
     setInterval(this.addNewBubble, 600);
-    console.log(this.state.bubbles);
     $(document.body).on('keydown', this.recordKeypress);
   },
 
@@ -80,6 +80,9 @@ var Invaders = React.createClass({
     return {
       bubbles: [],
       bubbleIdx: 0,
+      spaceshipX: 600,
+      spaceshipY: 400,
+      spaceshipTheta: 0,
       kbd: "",
       maxBubbles: 5,
       startTime: new Date(),
@@ -97,32 +100,76 @@ var Invaders = React.createClass({
     let spacebarKeyCode = 32;
     let leftKeyCode = 37;
     let rightKeyCode = 39;
+    let upKeyCode = 38;        
+    let downKeyCode = 40;
     if (event.keyCode === spacebarKeyCode) {
       this.fire();
       return;
     }
     if (event.keyCode === leftKeyCode) {
-      this.rotateLeft();
+      if (event.shiftKey) {
+        this.rotateLeft();
+      } else {
+        this.moveLeft();
+      }
+      event.preventDefault();
       return;
     }
     if (event.keyCode === rightKeyCode) {
-      this.rotateRight();
+      if (event.shiftKey) {
+        this.rotateRight();
+      } else {
+        this.moveRight();
+      }
+      event.preventDefault();
       return;
+    }
+    if (event.keyCode === upKeyCode) {
+      this.moveUp();
+      event.preventDefault();
+    }
+    if (event.keyCode === downKeyCode) {
+      this.moveDown();
+      event.preventDefault();
     }
   },
 
   fire: function() {
     console.log("bang bang");
+    event.preventDefault();
   },
 
   rotateLeft: function() {
-    console.log("moving left");
+    let incrementFactor = 5;
+    this.setState({spaceshipTheta: this.state.spaceshipTheta - 1 * incrementFactor});
   },
 
   rotateRight: function() {
-    console.log("moving right");
+    let incrementFactor = 10;
+    this.setState({spaceshipTheta: this.state.spaceshipTheta + 1 * incrementFactor});
+  },
+  
+
+  moveLeft: function() {
+    let incrementFactor = 20;
+    this.setState({spaceshipX: this.state.spaceshipX - 1 * incrementFactor});
   },
 
+  moveRight: function() {
+    let incrementFactor = 20;
+    this.setState({spaceshipX: this.state.spaceshipX + 1 * incrementFactor});
+  },
+
+  moveUp: function() {
+    let incrementFactor = 20;
+    this.setState({spaceshipY: this.state.spaceshipY - 1 * incrementFactor});
+  },
+
+  moveDown: function() {
+    let incrementFactor = 20;
+    this.setState({spaceshipY: this.state.spaceshipY + 1 * incrementFactor});
+  },
+  
   render: function() {
     return (
       <div>
@@ -130,7 +177,8 @@ var Invaders = React.createClass({
         { _.map(this.state.bubbles, function(data) {
           return ( <Bubble x={data.x} y={data.y} radius={data.radius} color={data.color} /> );
          })
-        }
+         }
+        <Spaceship x={this.state.spaceshipX} y={this.state.spaceshipY} theta={this.state.spaceshipTheta} />
       </div>
     );
   }
