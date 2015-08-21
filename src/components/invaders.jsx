@@ -24,7 +24,7 @@ var Invaders = React.createClass({
     var newBubbles = _.filter(this.state.bubbles, function(bubbleData) {
       return bubbleData.y <= 1000;
     });
-    if (newBubbles.length <= this.state.maxBubbles) {
+    if (newBubbles.length < this.state.maxBubbles) {
       var xVelo = (Math.random() - 0.5) / 5;
       var yVelo = (Math.random() / 2) / 5;
       var radius = 25 + Math.random() * 25;
