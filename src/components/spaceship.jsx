@@ -6,7 +6,8 @@ var Spaceship = React.createClass({
 
   getDefaultProps: function() {
     return {
-      color: "rgba(0,0,0,1)",
+      color: "#FFF",
+      opacity: 0.9,
       size: "4em",
       theta: 0,
       x: 0,
@@ -25,7 +26,8 @@ var Spaceship = React.createClass({
       top: this.props.y,
       transform: this.getRotationTransform(),
       fontSize: this.props.size,
-      color: this.props.color
+      color: this.props.color,
+      opacity: this.props.opacity
     };
     return (
       <div style={thisStyle}>

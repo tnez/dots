@@ -17,7 +17,8 @@ var config = {
         js: './src/**/*.jsx',
         css: [
             'node_modules/bootstrap/dist/css/bootstrap.min.css',
-            'node_modules/bootstrap/dist/css/boostrap-theme.min.css'
+            'node_modules/bootstrap/dist/css/boostrap-theme.min.css',
+            './src/css/**/*.css'
         ],
         fonts: [
             'node_modules/bootstrap/dist/fonts/glyphicons*'
@@ -83,7 +84,7 @@ gulp.task('lint', function() {
 gulp.task('watch', function() {
     gulp.watch(config.paths.html, ['html']);
     gulp.watch(config.paths.js, ['js', 'lint']);
-    gulp.watch('./src/style/*.css', ['css']);
+    gulp.watch('./src/css/**/*.css', ['css']);
 });
 
 // default task for convenience

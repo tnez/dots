@@ -14,7 +14,12 @@ var Bubble = React.createClass({
   },
 
   borderDef: function() {
-    return "" + Math.floor(this.props.radius  / 4) + "px solid rgba(1,1,1,0.25)";
+    return "" + Math.floor(this.props.radius  / 2) + "px solid rgba(255,255,255,0.75)";
+  },
+
+  boxShadowDef: function() {
+    var base = Math.floor(this.props.radius / 4);
+    return "" + base + "px" + base + "px" + base*3 + "px rgba(255,255,255,0.5)";
   },
 
   render: function() {
@@ -25,6 +30,7 @@ var Bubble = React.createClass({
       border: this.borderDef(),
       borderRadius: "50%",
       backgroundColor: this.props.color,
+      boxShadow: this.boxShadowDef(),
       position: "absolute",
       top: this.props.y,
       left: this.props.x
