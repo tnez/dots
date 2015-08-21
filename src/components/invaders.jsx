@@ -113,7 +113,7 @@ var Invaders = React.createClass({
 
   getDefaultProps: function() {
     return {
-      colors: ["red", "orange", "yellow", "green", "blue", "indigo", "violet"]
+      colors: ["red", "orange", "green", "blue", "indigo", "violet"]
     }
   },
 
