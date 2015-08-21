@@ -73,11 +73,31 @@ var Invaders = React.createClass({
                                 t: newT});
   },
 
+  updateSpaceshipPos: function() {
+    if (this.state.isFiring) {
+      let speedBoost = 5;
+      let theta = this.state.spaceshipTheta / 180 * Math.PI;
+      let yVelo = -Math.cos(theta) * speedBoost;
+      let xVelo = Math.sin(theta) * speedBoost;
+      let newX = this.state.spaceshipX + xVelo;
+      let newY = this.state.spaceshipY + yVelo;
+      this.setState({
+        spaceshipX: newX,
+        spaceshipY: newY
+      }); 
+    }
+  },
+
+  mainEventLoop: function() {
+    this.updateTimeElapsed();
+    this.updateSpaceshipPos();
+  },
+
   componentDidMount: function() {
     let interval = 5;
     this.updateBoardDimensions();
     $(window).resize(this.updateBoardDimensions);
-    setInterval(this.updateTimeElapsed, interval);
+    setInterval(this.mainEventLoop, interval);
     setInterval(this.addNewBubble, 600);
     $(document.body).on('keydown', this.recordKeypress);
   },
@@ -136,35 +156,29 @@ var Invaders = React.createClass({
       return;
     }
     if (event.keyCode === leftKeyCode) {
-      if (event.shiftKey) {
-        this.rotateLeft();
-      } else {
-        this.moveLeft();
-      }
+      this.rotateLeft();
       event.preventDefault();
       return;
     }
     if (event.keyCode === rightKeyCode) {
-      if (event.shiftKey) {
-        this.rotateRight();
-      } else {
-        this.moveRight();
-      }
+      this.rotateRight();
       event.preventDefault();
       return;
     }
     if (event.keyCode === upKeyCode) {
       this.moveUp();
       event.preventDefault();
+      return;
     }
     if (event.keyCode === downKeyCode) {
       this.moveDown();
       event.preventDefault();
+      return;
     }
   },
 
   fire: function() {
-    console.log("bang bang");
+    this.setState({isFiring: !this.state.isFiring});
     event.preventDefault();
   },
 
