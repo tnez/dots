@@ -24,11 +24,12 @@ var Invaders = React.createClass({
     var newBubbles = _.filter(this.state.bubbles, function(bubbleData) {
       return bubbleData.y <= 1000;
     });
-    if (newBubbles.length < this.state.maxBubbles) {
-      var x = Math.floor(Math.random() * 600);
-      var y = 0;
+    if (newBubbles.length <= this.state.maxBubbles) {
       var xVelo = (Math.random() - 0.5) / 5;
       var yVelo = (Math.random() / 2) / 5;
+      var radius = 25 + Math.random() * 25;
+      var x = Math.random() * (this.state.boardWidth - radius * 2);
+      var y = 0;
       var t = this.state.timeElapsed;
       var bubbleData = {
         x0: x,
@@ -53,13 +54,20 @@ var Invaders = React.createClass({
     var newX = bubbleData.x + delta * bubbleData.xVelo;
     var newY = bubbleData.y + delta * bubbleData.yVelo;
     var newT = timeElapsed;
-    var newXVelo = newX < 0 || newX + bubbleData.radius * 2 > this.state.boardWidth ?
-                 -bubbleData.xVelo : bubbleData.xVelo;
-    var newYVelo = newY < 0 || newY + bubbleData.radius * 2 > this.state.boardHeight ?
-                 -bubbleData.yVelo : bubbleData.yVelo;
-    // add randomness
-    newXVelo += (Math.random() - 0.5) / 75;
-    newYVelo += (Math.random() - 0.5) / 75;
+    var newXVelo = bubbleData.xVelo;
+    var newYVelo = bubbleData.yVelo;
+    if (newX < 0 || newX + bubbleData.radius * 2 > this.state.boardWidth ) {
+          newX = newXVelo < 0 ? 0 : this.state.boardWidth - bubbleData.radius * 2;
+          newXVelo = -newXVelo;
+    } else {
+      newXVelo += (Math.random() - 0.5) / 75;
+    }
+    if (newY < 0 || newY + bubbleData.radius * 2 > this.state.boardHeight ) {
+          newY = newYVelo < 0 ? 0 : this.state.boardHeight - bubbleData.radius * 2;
+          newYVelo = -newYVelo;
+    } else {
+      newYVelo += (Math.random() - 0.5) / 75;
+    }
     return _.merge(bubbleData, {x: newX, xVelo: newXVelo,
                                 y: newY, yVelo: newYVelo,
                                 t: newT});
@@ -105,7 +113,7 @@ var Invaders = React.createClass({
       spaceshipY: 400,
       spaceshipTheta: 0,
       kbd: "",
-      maxBubbles: 5,
+      maxBubbles: 8,
       startTime: new Date(),
       timeElapsed: 0
     }
