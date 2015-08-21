@@ -27,8 +27,8 @@ var Invaders = React.createClass({
     if (newBubbles.length < this.state.maxBubbles) {
       var x = Math.floor(Math.random() * 600);
       var y = 0;
-      var xVelo = (Math.random() - 0.5) / 250;
-      var yVelo = (Math.random() / 2) / 250;
+      var xVelo = (Math.random() - 0.5) / 5;
+      var yVelo = (Math.random() / 2) / 5;
       var t = this.state.timeElapsed;
       var bubbleData = {
         x0: x,
@@ -37,7 +37,7 @@ var Invaders = React.createClass({
         y: y,
         xVelo: xVelo,
         yVelo: yVelo,
-        radius: yVelo * 10000,
+        radius: yVelo * 500,
         color: _.sample(this.props.colors),
         t0: t,
         t: t
@@ -52,7 +52,7 @@ var Invaders = React.createClass({
     var delta = timeElapsed - bubbleData.t;
     var newX = bubbleData.x + delta * bubbleData.xVelo;
     var newY = bubbleData.y + delta * bubbleData.yVelo;
-    var newT = this.state.elapsedTime;
+    var newT = timeElapsed;
     var newXVelo = newX < 0 || newX + bubbleData.radius * 2 > this.state.boardWidth ?
               -bubbleData.xVelo : bubbleData.xVelo;
     var newYVelo = newY < 0 || newY + bubbleData.radius * 2 > this.state.boardHeight ?
