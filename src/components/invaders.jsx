@@ -53,11 +53,19 @@ var Invaders = React.createClass({
     var newX = bubbleData.x + delta * bubbleData.xVelo;
     var newY = bubbleData.y + delta * bubbleData.yVelo;
     var newT = this.state.elapsedTime;
-    return _.merge(bubbleData, {x: newX, y: newY, t: newT});
+    var newXVelo = newX < 0 || newX + bubbleData.radius * 2 > this.state.boardWidth ?
+              -bubbleData.xVelo : bubbleData.xVelo;
+    var newYVelo = newY < 0 || newY + bubbleData.radius * 2 > this.state.boardHeight ?
+              -bubbleData.yVelo : bubbleData.yVelo;
+    return _.merge(bubbleData, {x: newX, xVelo: newXVelo,
+                                y: newY, yVelo: newYVelo,
+                                t: newT});
   },
 
   componentDidMount: function() {
     let interval = 5;
+    this.updateBoardDimensions();
+    $(window).resize(this.updateBoardDimensions);
     setInterval(this.updateTimeElapsed, interval);
     setInterval(this.addNewBubble, 600);
     $(document.body).on('keydown', this.recordKeypress);
@@ -65,6 +73,14 @@ var Invaders = React.createClass({
 
   componentWillUnmount: function() {
     $(document.body).off('keydown', this.recordKeypress);
+  },
+
+  updateBoardDimensions: function(event) {
+    console.log("Window dims: " + $(window).width() + ", " + $(window).height());
+    this.setState({
+      boardHeight: $(window).height(),
+      boardWidth: $(window).width()
+    });
   },
 
   updateTimeElapsed: function() {
@@ -80,6 +96,8 @@ var Invaders = React.createClass({
     return {
       bubbles: [],
       bubbleIdx: 0,
+      boardHeight: $(window).height(),
+      boardWidth: $(window).width(),
       spaceshipX: 600,
       spaceshipY: 400,
       spaceshipTheta: 0,
