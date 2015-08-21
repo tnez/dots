@@ -17,30 +17,32 @@ var styles = StyleSheet.create({
 var Invaders = React.createClass({
 
   addNewBubble: function() {
-    var x = Math.floor(Math.random() * 600);
-    var y = 0;
-    var xVelo = (Math.random() - 0.5) / 100;
-    var yVelo = (Math.random() / 2) / 100;
-    var t = this.state.timeElapsed;
-    var bubbleData = {
-      x0: x,
-      x: x,
-      y0: y,
-      y: y,
-      xVelo: xVelo,
-      yVelo: yVelo,
-      radius: yVelo * 10000,
-      color: _.sample(this.props.colors),
-      t0: t,
-      t: t
-    };
     // copy bubble array, getting rid of any that have fallen out of
     // the screen to prevent this thing from slowing to a halt as we let
     // it run
     var newBubbles = _.filter(this.state.bubbles, function(bubbleData) {
       return bubbleData.y <= 1000;
     });
-    newBubbles.push(bubbleData);
+    if (newBubbles.length < this.state.maxBubbles) {
+      var x = Math.floor(Math.random() * 600);
+      var y = 0;
+      var xVelo = (Math.random() - 0.5) / 250;
+      var yVelo = (Math.random() / 2) / 250;
+      var t = this.state.timeElapsed;
+      var bubbleData = {
+        x0: x,
+        x: x,
+        y0: y,
+        y: y,
+        xVelo: xVelo,
+        yVelo: yVelo,
+        radius: yVelo * 10000,
+        color: _.sample(this.props.colors),
+        t0: t,
+        t: t
+      };
+      newBubbles.push(bubbleData);
+    }
     this.setState({bubbles: newBubbles});
     console.log(this.state.bubbles);
   },
@@ -79,6 +81,7 @@ var Invaders = React.createClass({
       bubbles: [],
       bubbleIdx: 0,
       kbd: "",
+      maxBubbles: 5,
       startTime: new Date(),
       timeElapsed: 0
     }
