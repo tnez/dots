@@ -54,11 +54,12 @@ var Invaders = React.createClass({
     var newY = bubbleData.y + delta * bubbleData.yVelo;
     var newT = timeElapsed;
     var newXVelo = newX < 0 || newX + bubbleData.radius * 2 > this.state.boardWidth ?
-                 -bubbleData.xVelo :
-                   bubbleData.xVelo + ((Math.random() - 0.5) / 75);
+                 -bubbleData.xVelo : bubbleData.xVelo;
     var newYVelo = newY < 0 || newY + bubbleData.radius * 2 > this.state.boardHeight ?
-                 -bubbleData.yVelo :
-                   bubbleData.yVelo + ((Math.random() - 0.5) / 75);
+                 -bubbleData.yVelo : bubbleData.yVelo;
+    // add randomness
+    newXVelo += (Math.random() - 0.5) / 75;
+    newYVelo += (Math.random() - 0.5) / 75;
     return _.merge(bubbleData, {x: newX, xVelo: newXVelo,
                                 y: newY, yVelo: newYVelo,
                                 t: newT});
