@@ -178,12 +178,23 @@ var Invaders = React.createClass({
       return;
     }
     if (event.keyCode === upKeyCode) {
-      this.moveUp();
+      let theta = this.state.spaceshipTheta / 180 * Math.PI;
+      console.log(theta);
+      if (Math.sin(theta) > 0) {
+        this.rotateLeft();
+      } else {
+        this.rotateRight();
+      }
       event.preventDefault();
       return;
     }
     if (event.keyCode === downKeyCode) {
-      this.moveDown();
+      let theta = this.state.spaceshipTheta / 180 * Math.PI;
+      if (Math.sin(theta) > 0) {
+        this.rotateRight();
+      } else {
+        this.rotateLeft();
+      }
       event.preventDefault();
       return;
     }
