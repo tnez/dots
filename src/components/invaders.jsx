@@ -81,10 +81,22 @@ var Invaders = React.createClass({
       let xVelo = Math.sin(theta) * speedBoost;
       let newX = this.state.spaceshipX + xVelo;
       let newY = this.state.spaceshipY + yVelo;
+      // TODO: remove hardcoded 60 and take into account spaceship width
+      if (newX <= 0 || newX >= this.state.boardWidth - 60) {
+        let newTheta = newX <= 0 ? 90 : -90;
+        this.setState({spaceshipTheta: newTheta, isFiring: false});
+        return;
+      }
+      if(newY <= 0 || newY >= this.state.boardHeight -  60) {
+        let newTheta = newY <= 0 ? 180 : 0;
+        this.setState({spaceshipTheta: newTheta, isFiring: false});
+        return;
+      }
+      // otherwise, normal case
       this.setState({
         spaceshipX: newX,
         spaceshipY: newY
-      }); 
+      });
     }
   },
 
