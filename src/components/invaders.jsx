@@ -203,7 +203,7 @@ var Invaders = React.createClass({
   },
 
   rotateLeft: function() {
-    let incrementFactor = 5;
+    let incrementFactor = 10;
     this.setState({spaceshipTheta: this.state.spaceshipTheta - 1 * incrementFactor});
   },
 
