@@ -143,7 +143,7 @@ var Invaders = React.createClass({
       spaceshipY: $(window).height() / 2,
       spaceshipTheta: 0,
       kbd: "",
-      maxBubbles: 8,
+      maxBubbles: 4,
       startTime: new Date(),
       timeElapsed: 0
     }
