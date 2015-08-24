@@ -33,7 +33,11 @@ var Bubble = React.createClass({
       boxShadow: this.boxShadowDef(),
       position: "absolute",
       top: this.props.y,
-      left: this.props.x
+      left: this.props.x,
+      margin: 0,
+      padding: 0,
+      marginTop: -this.props.radius,
+      marginLeft: -this.props.radius
     };
 
     return (

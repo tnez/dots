@@ -8,7 +8,7 @@ var Spaceship = React.createClass({
     return {
       color: "#FFF",
       opacity: 0.9,
-      size: "4em",
+      radius: 50,
       theta: 0,
       x: 0,
       y: 0
@@ -22,10 +22,14 @@ var Spaceship = React.createClass({
   render: function() {
     var thisStyle = {
       position: "absolute",
+      margin: 0,
+      padding: 0,
       left: this.props.x,
+      marginLeft: -this.props.radius / 2,
       top: this.props.y,
+      marginTop: -this.props.radius / 3,
       transform: this.getRotationTransform(),
-      fontSize: this.props.size,
+      fontSize: this.props.radius,
       color: this.props.color,
       opacity: this.props.opacity
     };

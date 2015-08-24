@@ -74,7 +74,7 @@ var Invaders = React.createClass({
 
   updateSpaceshipPos: function() {
     if (this.state.isFiring) {
-      let speedBoost = 5;
+      let speedBoost = 3;
       let theta = this.state.spaceshipTheta / 180 * Math.PI;
       let yVelo = -Math.cos(theta) * speedBoost;
       let xVelo = Math.sin(theta) * speedBoost;
@@ -99,9 +99,29 @@ var Invaders = React.createClass({
     }
   },
 
+  detectCollisions: function() {
+    let spaceshipX = this.state.spaceshipX;
+    let spaceshipY = this.state.spaceshipY;
+    let collisions = _.filter(this.state.bubbles, function(bubble) {
+      let dist = Math.sqrt(Math.pow(bubble.x - spaceshipX, 2) +
+                           Math.pow(bubble.y - spaceshipY, 2));
+      return dist < bubble.radius;
+    });
+    if (collisions.length > 0) {
+      this.setState({isRunning: false});
+      _.forEach(collisions, function(bubble) {
+        // here we would handle the collisions based on the bubble type
+      })
+    }
+  },
+
   mainEventLoop: function() {
-    this.updateTimeElapsed();
-    this.updateSpaceshipPos();
+    if (this.state.isRunning) {
+      this.updateTimeElapsed();
+      this.updateSpaceshipPos();
+      this.detectCollisions();
+      this.updateScore();
+    }
   },
 
   componentDidMount: function() {
@@ -125,12 +145,22 @@ var Invaders = React.createClass({
   },
 
   updateTimeElapsed: function() {
-    var timeElapsed = new Date() - this.state.startTime;
+    let timeElapsed = new Date() - this.state.startTime;
+    // update the score if we need to... we get 5 points every five seconds
     var updateBubbleFunc = this.updateBubblePos;
+    // update the position of the bubbles
     this.setState({timeElapsed: timeElapsed,
                    bubbles: _.map(this.state.bubbles, function(bubble) {
                      return updateBubbleFunc(bubble, timeElapsed);
                    })});
+  },
+
+  updateScore: function() {
+    let oldScore = this.state.score;
+    let newScore = Math.floor(this.state.timeElapsed / 1000 / 5) * 25;
+    if (oldScore < newScore) {
+      this.setState({score: newScore });
+    }
   },
 
   getInitialState: function() {
@@ -139,11 +169,13 @@ var Invaders = React.createClass({
       bubbleIdx: 0,
       boardHeight: $(window).height(),
       boardWidth: $(window).width(),
+      isRunning: true,
       spaceshipX: $(window).width() / 2,
       spaceshipY: $(window).height() / 2,
       spaceshipTheta: 0,
       kbd: "",
-      maxBubbles: 4,
+      maxBubbles: 8,
+      score: 0,
       startTime: new Date(),
       timeElapsed: 0
     }
@@ -161,6 +193,7 @@ var Invaders = React.createClass({
     let rightKeyCode = 39;
     let upKeyCode = 38;
     let downKeyCode = 40;
+    let pauseKeyCode = 80;
     if (event.keyCode === spacebarKeyCode) {
       this.fire();
       return;
@@ -193,6 +226,10 @@ var Invaders = React.createClass({
         this.rotateLeft();
       }
       event.preventDefault();
+      return;
+    }
+    if (event.keyCode === pauseKeyCode) {
+      this.setState({isRunning: !this.state.isRunning});
       return;
     }
   },
@@ -235,7 +272,7 @@ var Invaders = React.createClass({
   render: function() {
     return (
       <div>
-        <Scoreboard passedStyle={styles.scoreboard} timeElapsed={this.state.timeElapsed} />
+        <Scoreboard passedStyle={styles.scoreboard} timeElapsed={this.state.timeElapsed} score={this.state.score} />
         { _.map(this.state.bubbles, function(data) {
           return ( <Bubble x={data.x} y={data.y} radius={data.radius} color={data.color} /> );
          })
