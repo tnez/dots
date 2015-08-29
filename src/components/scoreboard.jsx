@@ -34,8 +34,8 @@ var Scoreboard = React.createClass({
   },
 
   render: function() {
-    let mins = String(Math.floor(this.props.timeElapsed / 1000 / 60));
-    let secs = (this.props.timeElapsed / 1000) % 60 < 10 ?
+    var mins = String(Math.floor(this.props.timeElapsed / 1000 / 60));
+    var secs = (this.props.timeElapsed / 1000) % 60 < 10 ?
                String("0" + Math.floor((this.props.timeElapsed / 1000) % 60)) :
                String(Math.floor((this.props.timeElapsed / 1000) % 60));
     return (

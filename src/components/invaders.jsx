@@ -74,20 +74,20 @@ var Invaders = React.createClass({
 
   updateSpaceshipPos: function() {
     if (this.state.isFiring) {
-      let speedBoost = 3;
-      let theta = this.state.spaceshipTheta / 180 * Math.PI;
-      let yVelo = -Math.cos(theta) * speedBoost;
-      let xVelo = Math.sin(theta) * speedBoost;
-      let newX = this.state.spaceshipX + xVelo * 0.5;
-      let newY = this.state.spaceshipY + yVelo * 0.5 ;
+      var speedBoost = 3;
+      var theta = this.state.spaceshipTheta / 180 * Math.PI;
+      var yVelo = -Math.cos(theta) * speedBoost;
+      var xVelo = Math.sin(theta) * speedBoost;
+      var newX = this.state.spaceshipX + xVelo * 0.5;
+      var newY = this.state.spaceshipY + yVelo * 0.5 ;
       // TODO: remove hardcoded 60 and take into account spaceship width
       if (newX <= 0 || newX >= this.state.boardWidth - 60) {
-        let newTheta = newX <= 0 ? 90 : -90;
+        var newTheta = newX <= 0 ? 90 : -90;
         this.setState({spaceshipTheta: newTheta, isFiring: false});
         return;
       }
       if(newY <= 0 || newY >= this.state.boardHeight -  60) {
-        let newTheta = newY <= 0 ? 180 : 0;
+        var newTheta = newY <= 0 ? 180 : 0;
         this.setState({spaceshipTheta: newTheta, isFiring: false});
         return;
       }
@@ -100,10 +100,10 @@ var Invaders = React.createClass({
   },
 
   detectCollisions: function() {
-    let spaceshipX = this.state.spaceshipX;
-    let spaceshipY = this.state.spaceshipY;
-    let collisions = _.filter(this.state.bubbles, function(bubble) {
-      let dist = Math.sqrt(Math.pow(bubble.x - spaceshipX, 2) +
+    var spaceshipX = this.state.spaceshipX;
+    var spaceshipY = this.state.spaceshipY;
+    var collisions = _.filter(this.state.bubbles, function(bubble) {
+      var dist = Math.sqrt(Math.pow(bubble.x - spaceshipX, 2) +
                            Math.pow(bubble.y - spaceshipY, 2));
       return dist < bubble.radius;
     });
@@ -125,7 +125,7 @@ var Invaders = React.createClass({
   },
 
   componentDidMount: function() {
-    let interval = 5;
+    var interval = 5;
     this.updateBoardDimensions();
     $(window).resize(this.updateBoardDimensions);
     setInterval(this.mainEventLoop, interval);
@@ -145,7 +145,7 @@ var Invaders = React.createClass({
   },
 
   updateTimeElapsed: function() {
-    let timeElapsed = new Date() - this.state.startTime;
+    var timeElapsed = new Date() - this.state.startTime;
     // update the score if we need to... we get 5 points every five seconds
     var updateBubbleFunc = this.updateBubblePos;
     // update the position of the bubbles
@@ -156,8 +156,8 @@ var Invaders = React.createClass({
   },
 
   updateScore: function() {
-    let oldScore = this.state.score;
-    let newScore = Math.floor(this.state.timeElapsed / 1000 / 5) * 25;
+    var oldScore = this.state.score;
+    var newScore = Math.floor(this.state.timeElapsed / 1000 / 5) * 25;
     if (oldScore < newScore) {
       this.setState({score: newScore });
     }
@@ -188,12 +188,12 @@ var Invaders = React.createClass({
   },
 
   recordKeypress: function(event) {
-    let spacebarKeyCode = 32;
-    let leftKeyCode = 37;
-    let rightKeyCode = 39;
-    let upKeyCode = 38;
-    let downKeyCode = 40;
-    let pauseKeyCode = 80;
+    var spacebarKeyCode = 32;
+    var leftKeyCode = 37;
+    var rightKeyCode = 39;
+    var upKeyCode = 38;
+    var downKeyCode = 40;
+    var pauseKeyCode = 80;
     if (event.keyCode === spacebarKeyCode) {
       this.fire();
       return;
@@ -209,7 +209,7 @@ var Invaders = React.createClass({
       return;
     }
     if (event.keyCode === upKeyCode) {
-      let theta = this.state.spaceshipTheta / 180 * Math.PI;
+      var theta = this.state.spaceshipTheta / 180 * Math.PI;
       if (Math.sin(theta) > 0) {
         this.rotateLeft();
       } else {
@@ -219,7 +219,7 @@ var Invaders = React.createClass({
       return;
     }
     if (event.keyCode === downKeyCode) {
-      let theta = this.state.spaceshipTheta / 180 * Math.PI;
+      var theta = this.state.spaceshipTheta / 180 * Math.PI;
       if (Math.sin(theta) > 0) {
         this.rotateRight();
       } else {
@@ -240,32 +240,32 @@ var Invaders = React.createClass({
   },
 
   rotateLeft: function() {
-    let incrementFactor = 20;
+    var incrementFactor = 20;
     this.setState({spaceshipTheta: this.state.spaceshipTheta - 1 * incrementFactor});
   },
 
   rotateRight: function() {
-    let incrementFactor = 20;
+    var incrementFactor = 20;
     this.setState({spaceshipTheta: this.state.spaceshipTheta + 1 * incrementFactor});
   },
 
   moveLeft: function() {
-    let incrementFactor = 20;
+    var incrementFactor = 20;
     this.setState({spaceshipX: this.state.spaceshipX - 1 * incrementFactor});
   },
 
   moveRight: function() {
-    let incrementFactor = 20;
+    var incrementFactor = 20;
     this.setState({spaceshipX: this.state.spaceshipX + 1 * incrementFactor});
   },
 
   moveUp: function() {
-    let incrementFactor = 20;
+    var incrementFactor = 20;
     this.setState({spaceshipY: this.state.spaceshipY - 1 * incrementFactor});
   },
 
   moveDown: function() {
-    let incrementFactor = 20;
+    var incrementFactor = 20;
     this.setState({spaceshipY: this.state.spaceshipY + 1 * incrementFactor});
   },
 
