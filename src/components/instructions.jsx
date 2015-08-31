@@ -39,7 +39,7 @@ var Instructions = React.createClass({
       <div style={style.wrapper}>
         <div style={style.instructionBox}>
           <h3>What is D.O.T.S?</h3>
-          <p>It is a simple game implemented in <a href="http://facebook.github.io/react/" target="_blank">React</a> that I created in order to familiarize myself with <a href="http://facebook.github.io/react/" target="_blank">React</a> as well as test it's perfomance boundaries by <strong>abusing</strong> it's rendering loop.</p>
+          <p>It is a simple game implemented in <a href="http://facebook.github.io/react/" target="_blank">React</a> that I created in order to familiarize myself with the framework as well as test it's perfomance boundaries by abusing it's rendering loop!</p>
           <h3>How do I play?</h3>
           <ul>
             <li>Use the <strong>spacebar</strong> to start and stop the spaceship</li>
