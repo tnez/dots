@@ -3,6 +3,7 @@
 var _ = require('lodash');
 var React = require('react');
 var StyleSheet = require('react-style');
+var Instructions = require('./instructions.jsx');
 var Scoreboard = require('./scoreboard.jsx');
 var Bubble = require('./bubble.jsx');
 var Spaceship = require('./spaceship.jsx');
@@ -176,6 +177,7 @@ var Invaders = React.createClass({
       kbd: "",
       maxBubbles: 8,
       score: 0,
+      showInstructions: true,
       startTime: new Date(),
       timeElapsed: 0
     }
@@ -272,6 +274,7 @@ var Invaders = React.createClass({
   render: function() {
     return (
       <div>
+        { this.state.showInstructions ? <Instructions /> : null }
         <Scoreboard passedStyle={styles.scoreboard} timeElapsed={this.state.timeElapsed} score={this.state.score} />
         { _.map(this.state.bubbles, function(data) {
           return ( <Bubble x={data.x} y={data.y} radius={data.radius} color={data.color} /> );
