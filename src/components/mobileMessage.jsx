@@ -9,8 +9,8 @@ var style = {
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundImage: "url(/img/background.png)",
-    backgroundSize: "auto 125%",
+    backgroundImage: "url(./img/background.png)",
+    backgroundSize: "150% auto",
     backgroundPosition: "50% 50%"
   },
   messageBox: {
