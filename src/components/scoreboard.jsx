@@ -7,7 +7,7 @@ var styles = StyleSheet.create({
   table: {
     tableLayout: "fixed",
     fontSize: "2em",
-    opacity: "0.75"
+    opacity: "0.9"
   },
   row: {
   },
