@@ -29,6 +29,9 @@ var Spaceship = React.createClass({
       top: this.props.y,
       marginTop: -this.props.radius / 3,
       transform: this.getRotationTransform(),
+      mozTransform: this.getRotationTransform(),
+      msTransform: this.getRotationTransform(),
+      webkitTransform: this.getRotationTransform(),
       fontSize: this.props.radius,
       color: this.props.color,
       opacity: this.props.opacity
