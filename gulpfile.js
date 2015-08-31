@@ -23,6 +23,7 @@ var config = {
         fonts: [
             'node_modules/bootstrap/dist/fonts/glyphicons*'
         ],
+        img: './src/img/**/*',
         dist: './build',
         mainJs: './src/main.jsx'
     }
@@ -74,6 +75,12 @@ gulp.task('fonts', function() {
         .pipe(connect.reload());
 });
 
+gulp.task('img', function() {
+    gulp.src(config.paths.img)
+        .pipe(gulp.dest(config.paths.dist + '/img'))
+        .pipe(connect.reload());
+});
+
 gulp.task('lint', function() {
     return gulp.src(config.paths.js)
         .pipe(lint({config: 'eslint.config.json'}))
@@ -88,4 +95,4 @@ gulp.task('watch', function() {
 });
 
 // default task for convenience
-gulp.task('default', ['html', 'js', 'css', 'fonts', 'lint', 'open', 'watch']);
+gulp.task('default', ['html', 'js', 'css', 'fonts', 'img', 'lint', 'open', 'watch']);
