@@ -48,7 +48,7 @@ var Instructions = React.createClass({
             <li>It's harder than it looks!</li>
           </ul>
           <div style={style.buttonBox}>
-            <button style={style.button} type="button" className="btn btn-primary">Start</button>
+            <button style={style.button} type="button" className="btn btn-primary" onClick={this.props.next}>Start</button>
           </div>
         </div>
       </div>

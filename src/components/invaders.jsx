@@ -126,12 +126,8 @@ var Invaders = React.createClass({
   },
 
   componentDidMount: function() {
-    var interval = 5;
     this.updateBoardDimensions();
     $(window).resize(this.updateBoardDimensions);
-    setInterval(this.mainEventLoop, interval);
-    setInterval(this.addNewBubble, 600);
-    $(document.body).on('keydown', this.recordKeypress);
   },
 
   componentWillUnmount: function() {
@@ -170,7 +166,7 @@ var Invaders = React.createClass({
       bubbleIdx: 0,
       boardHeight: $(window).height(),
       boardWidth: $(window).width(),
-      isRunning: true,
+      isRunning: false,
       spaceshipX: $(window).width() / 2,
       spaceshipY: $(window).height() / 2,
       spaceshipTheta: 0,
@@ -185,8 +181,19 @@ var Invaders = React.createClass({
 
   getDefaultProps: function() {
     return {
-      colors: ["red", "orange", "green", "blue", "indigo", "violet"]
+      colors: ["#3F7DB4", "#3A53BF", "#FBCD4D", "#F6AB37"]
     }
+  },
+
+  beginGame: function() {
+    var interval = 5;
+    this.setState({
+      isRunning: true,
+      showInstructions: false
+    });
+    setInterval(this.mainEventLoop, interval);
+    setInterval(this.addNewBubble, 600);
+    $(document.body).on('keydown', this.recordKeypress);
   },
 
   recordKeypress: function(event) {
@@ -274,13 +281,15 @@ var Invaders = React.createClass({
   render: function() {
     return (
       <div>
-        { this.state.showInstructions ? <Instructions /> : null }
+        { this.state.showInstructions ? <Instructions next={this.beginGame} /> : null }
         <Scoreboard passedStyle={styles.scoreboard} timeElapsed={this.state.timeElapsed} score={this.state.score} />
         { _.map(this.state.bubbles, function(data) {
           return ( <Bubble x={data.x} y={data.y} radius={data.radius} color={data.color} /> );
          })
          }
-        <Spaceship x={this.state.spaceshipX} y={this.state.spaceshipY} theta={this.state.spaceshipTheta} />
+        { this.state.isRunning ?
+        <Spaceship x={this.state.spaceshipX} y={this.state.spaceshipY} theta={this.state.spaceshipTheta} /> :
+        null }
       </div>
     );
   }
