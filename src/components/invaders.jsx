@@ -202,7 +202,6 @@ var Invaders = React.createClass({
     var rightKeyCode = 39;
     var upKeyCode = 38;
     var downKeyCode = 40;
-    var pauseKeyCode = 80;
     if (event.keyCode === spacebarKeyCode) {
       this.fire();
       return;
@@ -235,10 +234,6 @@ var Invaders = React.createClass({
         this.rotateLeft();
       }
       event.preventDefault();
-      return;
-    }
-    if (event.keyCode === pauseKeyCode) {
-      this.setState({isRunning: !this.state.isRunning});
       return;
     }
   },
