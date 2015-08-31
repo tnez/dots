@@ -23,5 +23,8 @@
     "react-style": "^0.5.5",
     "reactify": "^1.1.1",
     "vinyl-source-stream": "^1.1.0"
+  },
+  "dependencies": {
+    "react-responsive": "0.0.8"
   }
 }

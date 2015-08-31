@@ -2,8 +2,10 @@
 
 var _ = require('lodash');
 var React = require('react');
+var MediaQuery = require('react-responsive');
 var StyleSheet = require('react-style');
 var Instructions = require('./instructions.jsx');
+var MobileMessage = require('./mobileMessage.jsx');
 var Scoreboard = require('./scoreboard.jsx');
 var Bubble = require('./bubble.jsx');
 var Spaceship = require('./spaceship.jsx');
@@ -276,15 +278,22 @@ var Invaders = React.createClass({
   render: function() {
     return (
       <div>
-        { this.state.showInstructions ? <Instructions next={this.beginGame} /> : null }
-        <Scoreboard passedStyle={styles.scoreboard} timeElapsed={this.state.timeElapsed} score={this.state.score} />
-        { _.map(this.state.bubbles, function(data) {
-          return ( <Bubble x={data.x} y={data.y} radius={data.radius} color={data.color} /> );
-         })
-         }
-        { this.state.isRunning ?
-        <Spaceship x={this.state.spaceshipX} y={this.state.spaceshipY} theta={this.state.spaceshipTheta} /> :
-        null }
+        <MediaQuery query="(min-device-width: 769px)">
+
+          { this.state.showInstructions ? <Instructions next={this.beginGame} /> : null }
+          <Scoreboard passedStyle={styles.scoreboard} timeElapsed={this.state.timeElapsed} score={this.state.score} />
+          { _.map(this.state.bubbles, function(data) {
+            return ( <Bubble x={data.x} y={data.y} radius={data.radius} color={data.color} /> );
+           })
+           }
+          { this.state.isRunning ?
+           <Spaceship x={this.state.spaceshipX} y={this.state.spaceshipY} theta={this.state.spaceshipTheta} /> :
+           null }
+
+        </MediaQuery>
+        <MediaQuery query="(max-device-width: 768px)">
+          <MobileMessage />
+        </MediaQuery>
       </div>
     );
   }
