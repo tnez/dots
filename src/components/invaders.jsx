@@ -191,7 +191,8 @@ var Invaders = React.createClass({
     var interval = 5;
     this.setState({
       isRunning: true,
-      showInstructions: false
+      showInstructions: false,
+      startTime: new Date()
     });
     setInterval(this.mainEventLoop, interval);
     setInterval(this.addNewBubble, 600);
