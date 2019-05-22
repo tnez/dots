@@ -21,5 +21,5 @@ npm install
 ## Running
 
 ```
-gulp
+npm run dev
 ```
