@@ -18,8 +18,8 @@
         "no-use-before-define": 0
     },
     "globals": {
-        jQuery: true,
-        $: true,
-        _: true
+        "jQuery": true,
+        "$": true,
+        "_": true
     }
 }
